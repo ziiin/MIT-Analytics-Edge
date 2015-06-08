@@ -28,6 +28,8 @@ hist(crime$Date, breaks=100)
 nrow (subset(crime, Year == 2012 & Arrest == TRUE)) / nrow (subset(crime, Year == 2012))
 
 # Getting Top5
+sort(table(crime$LocationDescription))
+
 Top0 <- subset (crime, LocationDescription == "STREET")
 Top3 <- subset (crime, LocationDescription == "GAS STATION")
 Top1 <- subset (crime, LocationDescription == "PARKING")
