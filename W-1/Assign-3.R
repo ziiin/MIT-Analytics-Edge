@@ -38,3 +38,24 @@ nrow(subset(CPS, MetroArea == "Atlanta-Sandy Springs-Marietta, GA"))
 
 tail(sort(tapply(CPS$Hispanic, CPS$MetroArea, mean)))
 
+# number of metropolitan areas in the United States from which at least 20% of interviewees are Asian
+tmp <- data.frame(sort(with(CPS, tapply(Race=="Asian", MetroArea, mean))))
+sum(tmp >0.2)
+
+#  which metropolitan area has the smallest proportion of interviewees who have received no high school diploma
+tmp <- sort(tapply(CPS$Education == "No high school diploma", CPS$MetroArea, mean, na.rm = T))
+head(tmp)
+
+
+CPS = merge(CPS, CC, by.x="CountryOfBirthCode", by.y="Code", all.x=TRUE)
+sum(is.na(CPS$Country))
+
+# proportion of the interviewees from the "New York-Northern New Jersey-Long Island, NY-NJ-PA" metropolitan area have a country of birth that is not the United States
+x <- sum(CPS$MetroArea == "New York-Northern New Jersey-Long Island, NY-NJ-PA", na.rm = TRUE)
+y <- sum(CPS$MetroArea == "New York-Northern New Jersey-Long Island, NY-NJ-PA" & CPS$Country == "United States", na.rm = TRUE)
+1- y/x
+
+
+tail(sort(tapply(CPS$Country == "India", CPS$MetroArea, sum, na.rm = TRUE)))
+tail(sort(tapply(CPS$Country == "Brazil", CPS$MetroArea, sum, na.rm = TRUE)))
+tail(sort(tapply(CPS$Country == "Somalia", CPS$MetroArea, sum, na.rm = TRUE)))
